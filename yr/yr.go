@@ -17,7 +17,7 @@ const (
 	outputFilename = "kjevik-temp-fahr-20220318-20230318.csv"
 )
 
-const footerText = "Data is based on validated data (per 18.03.2023)(CC BY 4.0) from Meteorologisk institutt (MET);"
+const footerText = "Data is based on validated data (per 18.03.2023)(CC BY 4.0) from Meteorologisk institutt (MET); endret av Kristian Våg"
 
 func ConvTemperature() {
 	if _, err := os.Stat(outputFilename); err == nil {
@@ -82,7 +82,7 @@ func ConvTemperature() {
 	}
 }
 
-func AverageTemp() {
+func AverageTemp() float64 {
 	file, err := os.Open(inputFilename)
 	if err != nil {
 		log.Fatal(err)
@@ -115,4 +115,20 @@ func AverageTemp() {
 
 	average := sum / count
 	fmt.Printf("Average temperature for the period is: %.2f°C\n", average)
+
+	return average
+}
+
+func ProcessLine(line string) string {
+	fields := strings.Split(line, ";")
+	if len(fields) < 4 {
+		return ""
+	}
+	celsius, err := strconv.ParseFloat(fields[3], 64)
+	if err != nil {
+		return ""
+	}
+	fahrenheit := conv.CelsiusToFahrenheit(celsius)
+	fields[3] = strconv.FormatFloat(fahrenheit, 'f', 2, 64)
+	return strings.Join(fields, ";")
 }
