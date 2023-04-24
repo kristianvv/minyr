@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package yr_test
 
 import (
