@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"math"
 	"os"
-	"testing"
 
 	"github.com/kristianvv/minyr/yr"
 )
