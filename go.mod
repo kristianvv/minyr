@@ -1,4 +1,4 @@
-module github.com/kristianvv/minyr
+module github.com/kristianvv/minyr/yr
 
 go 1.18
 
